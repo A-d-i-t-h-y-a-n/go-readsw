@@ -2,8 +2,6 @@ module github.com/A-d-i-t-h-y-a-n/go-readsw
 
 go 1.22.0
 
-toolchain go1.23.5
-
 require (
 	github.com/mattn/go-sqlite3 v1.14.24
 	github.com/robertkrimen/otto v0.5.1
