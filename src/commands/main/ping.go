@@ -1,3 +1,4 @@
+// src/commands/main/ping.go
 package commands
 
 import (
@@ -6,18 +7,22 @@ import (
 	"time"
 )
 
+func ping(conn *libs.IClient, m *libs.IMessage) bool {
+	start := time.Now()
+	m.Reply("Pong!")
+
+	elapsed := time.Since(start)
+	m.Reply(fmt.Sprintf("Ping: %d ms", elapsed.Milliseconds()))
+
+	return true
+}
+
 func init() {
 	libs.NewCommands(&libs.ICommand{
-		Name:     "(ping|p)",
+		Name:     "ping",
 		As:       []string{"ping"},
 		Tags:     "main",
 		IsPrefix: true,
-		Execute: func(conn *libs.IClient, m *libs.IMessage) bool {
-			start := time.Now()
-			messageTime := time.Unix(m.Info.Timestamp.Unix(), 0)
-			ping := start.Sub(messageTime).Seconds()
-			m.Reply(fmt.Sprintf("*Ping :* %.2f Detik\n", ping))
-			return true
-		},
+		Execute:  ping,
 	})
 }
